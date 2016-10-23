@@ -52,6 +52,57 @@ class XavierFace(ttk.Frame):
             
 
 
+class Home(ttk.Frame):
+    def __init__(self, parent, controller):
+        ttk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text="Xavier says Hi,", font=LARGE_FONT)
+        label.pack(pady=10,padx=10)
+
+        button1 = ttk.Button(self, text="About Me",
+                            command=lambda: controller.show_frame(Home))
+        button1.pack()
+
+        button2 = ttk.Button(self, text="How can i help",
+                            command=lambda: controller.show_frame(PageTwo))
+        button2.pack()
+
+
+        
+        
+
+
+
+            
+class me(ttk.Frame):
+
+    def __init__(self, parent, controller):
+        ttk.Frame.__init__(self, parent)
+        self.FaceFeatures()
+        self.salutations()
+    def FaceFeatures(self):
+           self.label = ttk.Label(self, text="Hi", font=LARGE_FONT)
+           self.responses= ttk.Label(self, text="", font=LARGE_FONT)
+           self.label.pack(pady=10,padx=10)
+           self.responses.pack(pady=15,padx=15)
+    def salutations(self):
+        a= dt.datetime.now().strftime('%H')
+        a=int(a)
+        if a < 12:
+            self.label['text']="Good Morning!"
+        else:
+            self.label['text']="Good Evening!"
+        
+        
+   
+            
+            
+        
+        
+        
+            
+            
+  
+
 
 app=GuiInit()
 app.mainloop()
