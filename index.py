@@ -6,8 +6,10 @@ import time
 import PIL.Image
 from tkinter import *
 import os
-
+from os import popen 
 LARGE_FONT= ("Nexa Light", 12)
+from textblob import TextBlob
+
 
 
 class GuiInit(tkinter.Tk):
@@ -79,8 +81,12 @@ class Home(ttk.Frame):
         a=int(a)
         if a < 12:
             self.label['text']="Good Morning!"
+            os.system('say "Good Morning human! i am an artificial intelligence programe made by a mad genius, called Ben" ')
+
         else:
             self.label['text']="Good Evening!"
+            os.system('say "Good Evening human!" ')
+
 
 
         
@@ -117,11 +123,16 @@ class me(ttk.Frame):
         a= dt.datetime.now().strftime('%H')
         a=int(a)
         if a < 12:
-            self.label['text']="Good Morning!"
+            self.label['text']="Good Morning!,Speak out Your Command!"
+
+
         else:
-            self.label['text']="Good Evening!"
+            self.label['text']="Good Evening!,Speak out Your Command!"
         
     def butler(self):
+        import subprocess
+        subprocess.call(["afplay", "Submarine.aiff"])
+        self.label['text']="Litsening .......!"
         import speech_recognition as sr
         r=sr.Recognizer()
         with sr.Microphone() as source:
@@ -134,6 +145,7 @@ class me(ttk.Frame):
             self.label['text']="Sorry i cant understand you!"
         except sr.RequestError as e:
             self.label['text']=e
+            os.system('say "Could not esctablish an internet connection" ')
         #self.butler()
         
         
