@@ -8,6 +8,7 @@ from tkinter import *
 import os
 from os import popen 
 LARGE_FONT= ("Nexa Light", 12)
+import csv
 
 
 
@@ -116,8 +117,8 @@ class me(ttk.Frame):
            self.responses= ttk.Label(self, text="", font=LARGE_FONT)
            self.label.pack(pady=10,padx=10)
            self.responses.pack(pady=15,padx=15)
-           litsen_button=ttk.Button(self, text="Litsen",command=self.butler)
-           litsen_button.pack()
+           self.litsen_button=ttk.Button(self, text="Litsen",command=self.butler)
+           self.litsen_button.pack()
     def salutations(self):
         a= dt.datetime.now().strftime('%H')
         a=int(a)
@@ -142,16 +143,40 @@ class me(ttk.Frame):
         try:
             self.label['text']=r.recognize_google(audio)
             words=TextBlob(r.recognize_google(audio))
+            date=dt.datetime.now()
+            sentence=r.recognize_google(audio)
+            learn=[date, sentence.encode("utf-8")]
+            with open('brain.csv', 'w') as f:
+                writer=csv.writter(f)
+                writer.writerow(['date','sentence'])
+                writee.writerows(learn)
             a=words.words
-            print (a)
+            for i in a:
+                if i == "music":
+                    os.system('say "playing music!" ')
+                    self.musicplayer()
+                if i =="remind" and i =="tomorrow":
+                    os.system('say "Adding an event to your schedule"" ')
+                    self.reminder_tomorrow()
+                    
         except sr.UnknownValueError:
             self.label['text']="Sorry i cant understand you!"
             os.system('say "Sorry i cant understand you!" ')
         except sr.RequestError as e:
             self.label['text']=e
             os.system('say "Could not esctablish an internet connection" ')
+            self.musicplayer()
         #self.butler()
-        
+    def musicplayer(self):
+        import glob
+        import subprocess
+        self.litsen_button["text"]="Stop Music"
+        self.litsen_button["width"]=10
+        a=glob.glob("/Users/macuser/Desktop/d\'s/*.mp3")
+        #sound_program="/Users/macuser/Desktop/Google\ Chrome.app "
+        for i in a:
+            sound_program="/Users/macuser/Desktop/c.app"
+            subprocess.call([sound_program, i])
         
             
             
