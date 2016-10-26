@@ -157,7 +157,7 @@ class me(ttk.Frame):
                     self.musicplayer()
                 if i =="remind" and i =="tomorrow":
                     os.system('say "Adding an event to your schedule"" ')
-                    self.reminder_tomorrow()
+                    self.reminder_tomorrow(a)
                     
         except sr.UnknownValueError:
             self.label['text']="Sorry i cant understand you!"
@@ -177,6 +177,27 @@ class me(ttk.Frame):
         for i in a:
             sound_program="/Users/macuser/Desktop/c.app"
             subprocess.call([sound_program, i])
+    def remider_tomorrow(self,a):
+        from datetime import datetime
+        from threading import Timer
+        from xavier.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+        x=datetime.today()
+        y=x.replace(day=x.day+1,hour=10,minute=0, second=0,microsecond=0)
+        delta_t=y-x
+        secs=delta_t.seconds+1
+        def send_notifaction():
+            username="benmburu"
+            phone_number=0721799582
+            api_key="5302d778bb12c134db669118414d4598baa91ffc6023f0ce2f34246ffbf10a06"
+            to=phone_number
+            message="You asked xavier to remind you {0}".format(a)
+            gateway = AfricasTalkingGateway(username, api_key)
+            results = gateway.sendMessage(to, message)
+            t=Timer(secs,send_notifaction)
+            t.start()
+            os.system('say "added remider" ')
+            
+
         
             
             
