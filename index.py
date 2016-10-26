@@ -8,7 +8,6 @@ from tkinter import *
 import os
 from os import popen 
 LARGE_FONT= ("Nexa Light", 12)
-from textblob import TextBlob
 
 
 
@@ -131,6 +130,7 @@ class me(ttk.Frame):
         
     def butler(self):
         import subprocess
+        from textblob import TextBlob
         subprocess.call(["afplay", "Submarine.aiff"])
         self.label['text']="Litsening .......!"
         import speech_recognition as sr
@@ -141,8 +141,12 @@ class me(ttk.Frame):
 
         try:
             self.label['text']=r.recognize_google(audio)
+            words=TextBlob(r.recognize_google(audio))
+            a=words.words
+            print (a)
         except sr.UnknownValueError:
             self.label['text']="Sorry i cant understand you!"
+            os.system('say "Sorry i cant understand you!" ')
         except sr.RequestError as e:
             self.label['text']=e
             os.system('say "Could not esctablish an internet connection" ')
