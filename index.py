@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import tkinter
 from tkinter import ttk
 import datetime as dt
@@ -155,7 +155,7 @@ class me(ttk.Frame):
                 if i == "music":
                     os.system('say "playing music!" ')
                     self.musicplayer()
-                if i =="remind" and i =="tomorrow":
+                elif i =="remind" and i =="tomorrow":
                     os.system('say "Adding an event to your schedule"" ')
                     self.reminder_tomorrow(a)
                     
@@ -173,10 +173,9 @@ class me(ttk.Frame):
         self.litsen_button["text"]="Stop Music"
         self.litsen_button["width"]=10
         a=glob.glob("/Users/macuser/Desktop/d\'s/*.mp3")
-        #sound_program="/Users/macuser/Desktop/Google\ Chrome.app "
         for i in a:
             sound_program="/Users/macuser/Desktop/c.app"
-            subprocess.call([sound_program, i])
+            subprocess.call(["afplay", i])
     def remider_tomorrow(self,a):
         from datetime import datetime
         from threading import Timer
@@ -185,9 +184,10 @@ class me(ttk.Frame):
         y=x.replace(day=x.day+1,hour=10,minute=0, second=0,microsecond=0)
         delta_t=y-x
         secs=delta_t.seconds+1
+        self.send_notifaction()
         def send_notifaction():
             username="benmburu"
-            phone_number=0721799582
+            phone_number='0721799582'
             api_key="5302d778bb12c134db669118414d4598baa91ffc6023f0ce2f34246ffbf10a06"
             to=phone_number
             message="You asked xavier to remind you {0}".format(a)
