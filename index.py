@@ -9,6 +9,8 @@ import os
 from os import popen 
 LARGE_FONT= ("Nexa Light", 12)
 import csv
+from tkinter import messagebox
+
 
 
 
@@ -118,6 +120,9 @@ class me(ttk.Frame):
            self.label.pack(pady=10,padx=10)
            self.responses.pack(pady=15,padx=15)
            self.litsen_button=ttk.Button(self, text="Litsen",command=self.butler)
+           self.offline_service=ttk.Button(self, text="Offline Service",command=self.offlineservice)
+           self.offline_service.pack()
+
            self.litsen_button.pack()
     def salutations(self):
         a= dt.datetime.now().strftime('%H')
@@ -165,7 +170,7 @@ class me(ttk.Frame):
         except sr.RequestError as e:
             self.label['text']=e
             os.system('say "Could not esctablish an internet connection" ')
-            self.musicplayer()
+            self.offlineservice()
         #self.butler()
     def musicplayer(self):
         import glob
@@ -196,8 +201,17 @@ class me(ttk.Frame):
             t=Timer(secs,send_notifaction)
             t.start()
             os.system('say "added remider" ')
-            
+    def offlineservice(self):
+        root=Tk()
+        self.grid(column=0, row=0, sticky='nsew')
+        self.message=Entry(root, width=5)
+        self.message.grid(column=1, row=2)
+        self.submit_button=Button(root,text="Submit", width=5,command=self.offline_process())
+        self.submit_button.grid(column=0, row=3)
+        self.label =Label(root, text="Enter Command", font=LARGE_FONT)
+        self.label.grid(column=0, row=2,sticky='w')
 
+        
         
             
             
