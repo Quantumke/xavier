@@ -206,11 +206,13 @@ class me(ttk.Frame):
         self.grid(column=0, row=0, sticky='nsew')
         self.message=Entry(root, width=5)
         self.message.grid(column=1, row=2)
-        self.submit_button=Button(root,text="Submit", width=5,command=self.offline_process())
-        self.submit_button.grid(column=0, row=3)
+        submit_button=Button(root,text="Submit",command=self.offline_process())
+        submit_button.grid(column=0, row=3)
         self.label =Label(root, text="Enter Command", font=LARGE_FONT)
         self.label.grid(column=0, row=2,sticky='w')
-
+        def offline_process(self):
+            cmd=str(self.message.get())
+            os.system('say "Could not esctablish an internet connection" ')
         
         
             
